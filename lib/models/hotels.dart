@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/models/rooms.dart';
+import 'package:intl/intl.dart';
 
 class Hotels {
   final String name;
@@ -23,7 +24,7 @@ final List<Hotels> hotelList = [
     name: 'Alana Hotel',
     address: 'Jl. Palagan Tentara Pelajar No.123, Yogyakarta',
     image: 'assets/images/alana.jpg',
-    rating: '4.3',
+    rating: '4',
     startFrom: 400000,
     rooms: [
       Room(
@@ -42,7 +43,7 @@ final List<Hotels> hotelList = [
     name: 'Harris Hotel',
     address: 'Jl. Bangka Raya No.45, Jakarta Selatan',
     image: 'assets/images/harris.jpg',
-    rating: '4.1',
+    rating: '4',
     startFrom: 370000,
     rooms: [
       Room(
@@ -61,7 +62,7 @@ final List<Hotels> hotelList = [
     name: 'Four Points Hotel',
     address: 'Jl. Embong Malang No.25-31, Surabaya',
     image: 'assets/images/fourpoints.jpg',
-    rating: '4.5',
+    rating: '5',
     startFrom: 520000,
     rooms: [
       Room(
@@ -80,7 +81,7 @@ final List<Hotels> hotelList = [
     name: 'Shangrila Hotel',
     address: 'Jl. Jend. Sudirman Kav.1, Jakarta Pusat',
     image: 'assets/images/shangrila.jpg',
-    rating: '4.8',
+    rating: '5',
     startFrom: 750000,
     rooms: [
       Room(
@@ -96,3 +97,22 @@ final List<Hotels> hotelList = [
     ],
   ),
 ];
+
+// convert to stars rating
+String convertToStars(String rating) {
+  int starCount = int.parse(rating);
+  String stars = '';
+  for (int i = 0; i < starCount; i++) {
+    stars += '⭐';
+  }
+  return stars;
+}
+
+// format double value into money format
+String formatPrice(int price) {
+  return NumberFormat.currency(
+    locale: 'id',
+    symbol: 'Rp',
+    decimalDigits: 0,
+  ).format(price);
+}
