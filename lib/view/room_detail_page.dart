@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hotelin/models/hotels.dart';
+import 'package:hotelin/service/auth/auth_service.dart';
+import 'package:hotelin/service/database/firestore.dart';
+import 'package:hotelin/service/notifications/notification_service.dart';
+import 'package:hotelin/view/home_page.dart';
 
 class RoomDetailPage extends StatelessWidget {
   final Hotels hotel;
@@ -8,13 +12,17 @@ class RoomDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirestoreService db = FirestoreService();
+    final user = AuthService().getCurrentUser();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          hotel.name,
-          style: const TextStyle(
+        title: const Text(
+          'HOTEL DETAILS',
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
+            letterSpacing: 5,
           ),
         ),
         centerTitle: true,
@@ -32,13 +40,12 @@ class RoomDetailPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-
-            // Hotel details
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Hotel name
                   Text(
                     hotel.name,
                     style: const TextStyle(
@@ -47,36 +54,41 @@ class RoomDetailPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
+
+                  // Hotel address
                   Text(
                     hotel.address,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),
                   const SizedBox(height: 2),
-                  Row(
-                    children: [
-                      Text(
-                        'Rating: ${convertToStars(hotel.rating)}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
 
-                  // Available rooms header
+                  // Hotel rating
+                  Text(
+                    convertToStars(hotel.rating),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 10),
+
+                  // Room details
                   const Text(
                     'Available Rooms',
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 10),
 
                   // Room list
                   ListView.builder(
@@ -100,10 +112,10 @@ class RoomDetailPage extends StatelessWidget {
                                 '${room.roomType} Room',
                                 style: const TextStyle(
                                   fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 2),
                               Row(
                                 children: [
                                   const Icon(
@@ -133,13 +145,53 @@ class RoomDetailPage extends StatelessWidget {
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    // Handle booking action
+                                  onPressed: () async {
+                                    // save booking to database
+                                    await db.saveBookingToDatabase(
+                                      userEmail: user?.email ?? 'empty',
+                                      hotelName: hotel.name,
+                                      roomType: room.roomType,
+                                      bedType: room.bedType,
+                                      price: formatPrice(room.price),
+                                      bookedAt: DateTime.now(),
+                                    );
+                                    // create notification
+                                    await NotificationService
+                                        .createNotification(
+                                      id: room.id,
+                                      bookingId: DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .toString(),
+                                      title: 'Booking Confirmation',
+                                      body:
+                                          'You have booked a ${room.roomType} room at ${hotel.name}.',
+                                      hotelName: hotel.name,
+                                      roomType: room.roomType,
+                                      bedType: room.bedType,
+                                      price: formatPrice(room.price),
+                                      bookedAt: DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day,
+                                      ),
+                                    );
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      const SnackBar(
+                                        backgroundColor: Colors.green,
                                         content: Text(
-                                            'Booking ${room.roomType} room...'),
-                                        duration: const Duration(seconds: 2),
+                                          'Booking successful!',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                    Navigator.push(
+                                      // ignore: use_build_context_synchronously
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const HomePage(),
                                       ),
                                     );
                                   },
@@ -177,7 +229,7 @@ class RoomDetailPage extends StatelessWidget {
                         ),
                       );
                     },
-                  ),
+                  )
                 ],
               ),
             ),
