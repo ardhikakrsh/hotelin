@@ -1,5 +1,5 @@
-import 'package:awesome_notifications/firebase_options.dart';
-import 'package:awesome_notifications/service/auth/welcome_page.dart';
+import 'package:hotelin/firebase_options.dart';
+import 'package:hotelin/service/auth/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-# awesome_notifications
+# hotelin
 
 A new Flutter project.
 

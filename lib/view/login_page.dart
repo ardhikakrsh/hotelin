@@ -1,7 +1,7 @@
-import 'package:awesome_notifications/helper/display_message.dart';
-import 'package:awesome_notifications/service/auth/auth_service.dart';
-import 'package:awesome_notifications/view/home_page.dart';
-import 'package:awesome_notifications/view/register_page.dart';
+import 'package:hotelin/helper/display_message.dart';
+import 'package:hotelin/service/auth/auth_service.dart';
+import 'package:hotelin/view/home_page.dart';
+import 'package:hotelin/view/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:awesome_notifications/models/rooms.dart';
+import 'package:hotelin/models/rooms.dart';
 import 'package:intl/intl.dart';
 
 class Hotels {

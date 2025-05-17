@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:awesome_notifications/models/hotels.dart';
+import 'package:hotelin/models/hotels.dart';
 
 class RoomDetailPage extends StatelessWidget {
   final Hotels hotel;

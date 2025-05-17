@@ -1,5 +1,5 @@
-import 'package:awesome_notifications/view/login_page.dart';
-import 'package:awesome_notifications/view/register_page.dart';
+import 'package:hotelin/view/login_page.dart';
+import 'package:hotelin/view/register_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {

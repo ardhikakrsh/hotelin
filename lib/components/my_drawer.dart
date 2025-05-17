@@ -1,5 +1,5 @@
-import 'package:awesome_notifications/service/auth/auth_service.dart';
-import 'package:awesome_notifications/service/auth/welcome_page.dart';
+import 'package:hotelin/service/auth/auth_service.dart';
+import 'package:hotelin/service/auth/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
