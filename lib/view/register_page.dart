@@ -60,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/images/rabbit.jpg'),
+                          image: AssetImage('assets/images/room1.jpg'),
                         ),
                       ),
                     ),

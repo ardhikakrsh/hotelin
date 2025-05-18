@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/images/fox.jpg'),
+                          image: AssetImage('assets/images/login.webp'),
                         ),
                       ),
                     ),
