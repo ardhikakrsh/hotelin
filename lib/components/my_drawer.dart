@@ -31,13 +31,7 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.blue,
                 ),
               ),
-              accountName: Text(
-                user?.displayName ?? 'Full Name',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
+              accountName: const Text(''),
               accountEmail: Text(
                 user?.email ?? 'User Email',
                 style: const TextStyle(fontSize: 16),

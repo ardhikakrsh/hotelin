@@ -56,22 +56,44 @@ class RoomDetailPage extends StatelessWidget {
                   const SizedBox(height: 2),
 
                   // Hotel address
-                  Text(
-                    hotel.address,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        size: 18,
+                        color: Colors.redAccent,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        hotel.address,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
 
                   // Hotel rating
-                  Text(
-                    convertToStars(hotel.rating),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.apartment_rounded,
+                        size: 20,
+                        color: Colors.blue,
+                      ),
+                      const SizedBox(width: 2),
+                      const Text(
+                        'Hotel',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(width: 8),
+                      ...getRatingStars(hotel.rating),
+                    ],
                   ),
                   const SizedBox(height: 2),
                   const Divider(

@@ -1,6 +1,6 @@
+import 'package:hotelin/components/my_list_hotel.dart';
 import 'package:hotelin/components/my_drawer.dart';
 import 'package:hotelin/models/hotels.dart';
-import 'package:hotelin/view/room_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +22,9 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications, color: Colors.blue),
-            onPressed: () {},
+            onPressed: () {
+              // Aksi untuk mengaktifkan notifikasi untuk awesome notification
+            },
           ),
         ],
       ),
@@ -49,14 +51,31 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search hotels',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search hotels',
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[800],
+                    ),
+                    margin: const EdgeInsets.only(left: 10),
+                    child: IconButton(
+                      icon: const Icon(Icons.filter_list, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               ListView.builder(
@@ -64,72 +83,8 @@ class HomePage extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: hotelList.length, // Replace with your data length
                 itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 4,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(15),
-                      onTap: () {
-                        // Navigasi ke detail
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RoomDetailPage(
-                              hotel: hotelList[index],
-                            ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          children: [
-                            // Gambar Hotel
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                hotelList[index].image,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            // Detail Hotel
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    hotelList[index].name,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    hotelList[index].address,
-                                    style: const TextStyle(color: Colors.grey),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(convertToStars(hotelList[index].rating)),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Start from ${formatPrice(hotelList[index].startFrom)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  return MyListHotel(
+                    index: index,
                   );
                 },
               ),

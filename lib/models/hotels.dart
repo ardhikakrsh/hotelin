@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hotelin/models/rooms.dart';
 import 'package:intl/intl.dart';
 
@@ -155,13 +156,15 @@ final List<Hotels> hotelList = [
 ];
 
 // convert to stars rating
-String convertToStars(String rating) {
-  int starCount = int.parse(rating);
-  String stars = '';
-  for (int i = 0; i < starCount; i++) {
-    stars += '⭐';
-  }
-  return stars;
+List<Widget> getRatingStars(String rating) {
+  return List.generate(
+    int.tryParse(rating) ?? 0,
+    (index) => const Icon(
+      Icons.star,
+      color: Colors.amber,
+      size: 18,
+    ),
+  );
 }
 
 // format double value into money format
