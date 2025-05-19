@@ -1,4 +1,4 @@
-![Screenshot_1747629379](https://github.com/user-attachments/assets/9c6e5189-4729-45e7-9abe-8a76c6f0e8df)| Name                   | NRP        |
+| Name                   | NRP        |
 | ---------------------- | ---------- |
 | Ardhika Krishna Wijaya | 5025221006 |
 
